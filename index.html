@@ -24,9 +24,14 @@
             display: none;
             padding: 20px;
             text-align: center;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
         .active {
             display: block;
+            opacity: 1;
+            transform: translateY(0);
         }
         .bottom-nav {
             position: fixed;
@@ -47,10 +52,12 @@
             font-size: 16px;
             cursor: pointer;
             color: var(--tg-theme-text-color, #222);
+            transition: color 0.3s ease, transform 0.2s ease;
         }
         .bottom-nav button.active {
             font-weight: bold;
             border-bottom: 2px solid var(--tg-theme-button-color, #50a8eb);
+            transform: scale(1.1);
         }
     </style>
 </head>
@@ -60,15 +67,20 @@
     <div id="profile" class="container">Профиль</div>
 
     <div class="bottom-nav">
-        <button onclick="changeTab('home')" class="active">🏠</button>
-        <button onclick="changeTab('search')">🔍</button>
+        <button onclick="changeTab('home')" class="active">⌂</button>
+        <button onclick="changeTab('search')">🔎</button>
         <button onclick="changeTab('profile')">👤</button>
     </div>
 
     <script>
         function changeTab(tabId) {
-            document.querySelectorAll('.container').forEach(el => el.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
+            document.querySelectorAll('.container').forEach(el => {
+                el.classList.remove('active');
+            });
+            setTimeout(() => {
+                document.getElementById(tabId).classList.add('active');
+            }, 50);
+
             document.querySelectorAll('.bottom-nav button').forEach(el => el.classList.remove('active'));
             event.target.classList.add('active');
         }
