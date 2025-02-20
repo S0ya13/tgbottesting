@@ -73,27 +73,34 @@
     </style>
 </head>
 <body>
-    <div id="home" class="container active">Главная</div>
-    <div id="search" class="container">Поиск</div>
-    <div id="profile" class="container">Профиль</div>
+    <div id="home" class="container active">Головна</div>
+    <div id="search" class="container">Пошук</div>
+    <div id="profile" class="container">Профіль</div>
 
     <div class="bottom-nav">
-        <button onclick="changeTab('home')" class="active">🏠</button>
+        <button onclick="changeTab('home')" class="active">⌂</button>
         <button onclick="changeTab('search')">🔎</button>
         <button onclick="changeTab('profile')">👤</button>
     </div>
 
     <script>
+        let activeTab = 'home';
+
         function changeTab(tabId) {
+            if (tabId === activeTab) return;
+
             document.querySelectorAll('.container').forEach(el => {
                 el.classList.remove('active');
             });
+
             setTimeout(() => {
                 document.getElementById(tabId).classList.add('active');
             }, 50);
 
             document.querySelectorAll('.bottom-nav button').forEach(el => el.classList.remove('active'));
             event.target.classList.add('active');
+
+            activeTab = tabId;
         }
     </script>
 </body>
