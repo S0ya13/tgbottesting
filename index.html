@@ -62,8 +62,8 @@
             user-select: none;
         }
         .bottom-nav button:active {
-            transform: scale(0.95);
-            opacity: 0.7;
+            transform: none;
+            opacity: 1;
         }
         .bottom-nav button.active {
             font-weight: bold;
@@ -73,9 +73,9 @@
     </style>
 </head>
 <body>
-    <div id="home" class="container active">Головна</div>
-    <div id="search" class="container">Пошук</div>
-    <div id="profile" class="container">Профіль</div>
+    <div id="home" class="container active">Главная</div>
+    <div id="search" class="container">Поиск</div>
+    <div id="profile" class="container">Профиль</div>
 
     <div class="bottom-nav">
         <button onclick="changeTab('home')" class="active">⌂</button>
@@ -87,7 +87,7 @@
         let activeTab = 'home';
 
         function changeTab(tabId) {
-            if (tabId === activeTab) return;
+            if (tabId === activeTab) return; // Проверка на уже активную вкладку
 
             document.querySelectorAll('.container').forEach(el => {
                 el.classList.remove('active');
@@ -100,7 +100,7 @@
             document.querySelectorAll('.bottom-nav button').forEach(el => el.classList.remove('active'));
             event.target.classList.add('active');
 
-            activeTab = tabId;
+            activeTab = tabId; // Обновляем текущую активную вкладку
         }
     </script>
 </body>
