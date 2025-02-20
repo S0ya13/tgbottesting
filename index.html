@@ -1,95 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="format-detection" content="telephone=no" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="MobileOptimized" content="176" />
-    <meta name="HandheldFriendly" content="True" />
-    <meta name="robots" content="noindex,nofollow" />
-    <script src="https://telegram.org/js/telegram-web-app.js?2"></script>
-    <title>Web App</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            background-color: var(--tg-theme-bg-color, #fff);
-            color: var(--tg-theme-text-color, #222);
-            font-size: 14px;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            -webkit-tap-highlight-color: transparent;
-            user-select: none;
-        }
-        .container {
-            display: none;
-            padding: 20px;
-            text-align: center;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-        .active {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
-</head>
-<body>
-    <div id="home" class="container active">Главная</div>
-    <div id="search" class="container">Поиск</div>
-    <div id="profile" class="container">Профиль</div>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <script>
-        let activeTab = 'home';
+        <!--=============== REMIXICONS ===============-->
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 
-        function changeTab(tabId) {
-            if (tabId === activeTab) return;
+        <!--=============== CSS ===============-->
+        <link rel="stylesheet" href="assets/css/styles.css">
+        <script src="https://telegram.org/js/telegram-web-app.js?2"></script>
+        <title>Web App</title>
+    </head>
+    <body>
+        <!--=============== NAVBAR ===============-->
+        <nav class="nav">
+            <ul class="nav__list">
+                <a href="#home" class="nav__link active-link">
+                    <i class="ri-home-5-line"></i>
+                    <span class="nav__name">
+                        Home
+                    </span>
+                </a>
 
-            document.querySelectorAll('.container').forEach(el => {
-                el.classList.remove('active');
-            });
+                <a href="#profile" class="nav__link">
+                    <i class="ri-user-line"></i>
+                    <span class="nav__name">
+                        Profile
+                    </span>
+                </a>
 
-            setTimeout(() => {
-                document.getElementById(tabId).classList.add('active');
-            }, 50);
+                <a href="#message" class="nav__link">
+                    <i class="ri-chat-3-line"></i>
+                    <span class="nav__name">
+                        Message
+                    </span>
+                </a>
 
-            activeTab = tabId;
-            updateButtons();
-        }
+                <a href="#mail" class="nav__link">
+                    <i class="ri-mail-open-line"></i>
+                    <span class="nav__name">
+                        Mail
+                    </span>
+                </a>
 
-        function updateButtons() {
-            if (activeTab === 'home') {
-                Telegram.WebApp.MainButton.setParams({ text: '🏠 Главная' });
-            } else if (activeTab === 'search') {
-                Telegram.WebApp.MainButton.setParams({ text: '🔎 Поиск' });
-            } else if (activeTab === 'profile') {
-                Telegram.WebApp.MainButton.setParams({ text: '👤 Профиль' });
-            }
-        }
+                <a href="#settings" class="nav__link">
+                    <i class="ri-settings-line"></i>
+                    <span class="nav__name">
+                        Settings
+                    </span>
+                </a>
 
-        Telegram.WebApp.ready();
+                <svg class="indicator" width="94" height="56" xmlns="http://www.w3.org/2000/svg">
+                    <ellipse cx="47" cy="28" rx="24" ry="28"/>
+                    <path d="M24 20C24 20 28 55.9999 48 56L0 55.9997C18 55.9998 24 20 24 20Z"/>
+                    <path d="M70 20C70 20 66 55.9999 46 56L94 55.9997C76 55.9998 70 20 70 20Z"/>
+                </svg>
+            </ul>
+        </nav>
 
-        Telegram.WebApp.MainButton.setParams({
-            text: '🏠 Главная',
-            is_visible: true
-        }).onClick(() => changeTab('home'));
+        <!--=============== MAIN ===============-->
+        <main class="container">
+            <section id="home">
+                <h2>Home</h2>
+            </section>
 
-        Telegram.WebApp.BackButton.show();
-        Telegram.WebApp.BackButton.onClick(() => changeTab('search'));
+            <section id="profile">
+                <h2>Profile</h2>
+            </section>
 
-        Telegram.WebApp.SecondaryButton = Telegram.WebApp.createButton();
-        Telegram.WebApp.SecondaryButton.setParams({
-            text: '👤 Профиль',
-            is_visible: true
-        }).onClick(() => changeTab('profile'));
+            <section id="message">
+                <h2>Message</h2>
+            </section>
 
-        Telegram.WebApp.onEvent('themeChanged', () => {
-            document.body.style.backgroundColor = Telegram.WebApp.themeParams.bg_color;
-            document.body.style.color = Telegram.WebApp.themeParams.text_color;
-        });
-    </script>
-</body>
+            <section id="mail">
+                <h2>Mail</h2>
+            </section>
+
+            <section id="settings">
+                <h2>Settings</h2>
+            </section>
+        </main>
+
+        <!--=============== MAIN JS ===============-->
+        <script src="assets/js/main.js"></script>
+    </body>
 </html>
