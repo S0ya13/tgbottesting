@@ -35,53 +35,12 @@
             opacity: 1;
             transform: translateY(0);
         }
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-around;
-            background: var(--tg-theme-secondary-bg-color, #efefef);
-            padding: 10px 0;
-            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-        }
-        .bottom-nav button {
-            flex: 1;
-            background: none;
-            border: none;
-            padding: 10px;
-            font-size: 16px;
-            cursor: pointer;
-            color: var(--tg-theme-text-color, #222);
-            transition: color 0.2s ease, transform 0.1s ease;
-            outline: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-        .bottom-nav button:active {
-            transform: none;
-            opacity: 1;
-        }
-        .bottom-nav button.active {
-            font-weight: bold;
-            border-bottom: 2px solid var(--tg-theme-button-color, #50a8eb);
-            transform: scale(1.1);
-        }
     </style>
 </head>
 <body>
-    <div id="home" class="container active">Головна</div>
-    <div id="search" class="container">Пошук</div>
-    <div id="profile" class="container">Профіль</div>
-
-    <div class="bottom-nav">
-        <button onclick="changeTab('home')" class="active">🏠</button>
-        <button onclick="changeTab('search')">🔎</button>
-        <button onclick="changeTab('profile')">👤</button>
-    </div>
+    <div id="home" class="container active">Главная</div>
+    <div id="search" class="container">Поиск</div>
+    <div id="profile" class="container">Профиль</div>
 
     <script>
         let activeTab = 'home';
@@ -97,11 +56,23 @@
                 document.getElementById(tabId).classList.add('active');
             }, 50);
 
-            document.querySelectorAll('.bottom-nav button').forEach(el => el.classList.remove('active'));
-            event.target.classList.add('active');
-
             activeTab = tabId; // Обновляем текущую активную вкладку
         }
+
+        Telegram.WebApp.ready();
+
+        Telegram.WebApp.MainButton.setParams({
+            text: '🏠 Главная',
+            is_visible: true
+        }).onClick(() => changeTab('home'));
+
+        Telegram.WebApp.BackButton.show();
+        Telegram.WebApp.BackButton.onClick(() => changeTab('search'));
+
+        Telegram.WebApp.onEvent('themeChanged', () => {
+            document.body.style.backgroundColor = Telegram.WebApp.themeParams.bg_color;
+            document.body.style.color = Telegram.WebApp.themeParams.text_color;
+        });
     </script>
 </body>
 </html>
