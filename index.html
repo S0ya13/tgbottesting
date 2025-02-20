@@ -46,7 +46,7 @@
         let activeTab = 'home';
 
         function changeTab(tabId) {
-            if (tabId === activeTab) return; // Проверка на уже активную вкладку
+            if (tabId === activeTab) return;
 
             document.querySelectorAll('.container').forEach(el => {
                 el.classList.remove('active');
@@ -56,7 +56,18 @@
                 document.getElementById(tabId).classList.add('active');
             }, 50);
 
-            activeTab = tabId; // Обновляем текущую активную вкладку
+            activeTab = tabId;
+            updateButtons();
+        }
+
+        function updateButtons() {
+            if (activeTab === 'home') {
+                Telegram.WebApp.MainButton.setParams({ text: '🏠 Главная' });
+            } else if (activeTab === 'search') {
+                Telegram.WebApp.MainButton.setParams({ text: '🔎 Поиск' });
+            } else if (activeTab === 'profile') {
+                Telegram.WebApp.MainButton.setParams({ text: '👤 Профиль' });
+            }
         }
 
         Telegram.WebApp.ready();
@@ -68,6 +79,12 @@
 
         Telegram.WebApp.BackButton.show();
         Telegram.WebApp.BackButton.onClick(() => changeTab('search'));
+
+        Telegram.WebApp.SecondaryButton = Telegram.WebApp.createButton();
+        Telegram.WebApp.SecondaryButton.setParams({
+            text: '👤 Профиль',
+            is_visible: true
+        }).onClick(() => changeTab('profile'));
 
         Telegram.WebApp.onEvent('themeChanged', () => {
             document.body.style.backgroundColor = Telegram.WebApp.themeParams.bg_color;
